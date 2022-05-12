@@ -1,16 +1,39 @@
-import "../styles/dist.css";
-import "../styles/normalize.css";
-import "../styles/global.css";
+import '../styles/dist.css'
+import '../styles/normalize.css'
+import '../styles/global.css'
 
-import React from "react";
-import HeadInformation from "components/general/HeadInformation";
-import { Provider } from "react-redux";
-import { store } from "app/store";
-// import type { AppProps } from "next/app";
-import Layout from "components/general/layout/Layout";
+import React from 'react'
+import HeadInformation from 'components/general/HeadInformation'
+import { Provider } from 'react-redux'
+import { store } from 'app/store'
+import type { AppProps, NextWebVitalsMetric } from 'next/app'
+
+export function reportWebVitals(metric: NextWebVitalsMetric) {
+  switch (metric.name) {
+    case 'FCP':
+      console.log(`FCP: ${Math.round(metric.value * 10) / 10}`)
+      break
+    case 'LCP':
+      console.log(`LCP: ${Math.round(metric.value * 10) / 10}`)
+      break
+    case 'TTFB':
+      console.log(`TTFB: ${Math.round(metric.value * 10) / 10}`)
+      break
+    case 'Next.js-hydration':
+      console.log(
+        `Hydration: ${Math.round(metric.startTime * 10) / 10} -> ${
+          Math.round((metric.startTime + metric.value) * 10) / 10
+          // 終了時間を出力
+        }`
+      )
+      break
+    default:
+      break
+  }
+}
 
 const MyApp = ({ Component, pageProps }) => {
-  const getLayout = Component.getLayout || ((page) => page);
+  const getLayout = Component.getLayout || ((page) => page)
   // Q: AppProps型がつくとgetLayoutがはじかれる
   return (
     <>
@@ -23,7 +46,7 @@ const MyApp = ({ Component, pageProps }) => {
        };
      */}
     </>
-  );
-};
+  )
+}
 
-export default MyApp;
+export default MyApp
